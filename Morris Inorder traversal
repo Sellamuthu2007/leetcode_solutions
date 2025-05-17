@@ -1,0 +1,28 @@
+//c++ code for Inorder traversal in O(1) Space complexity.
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>inorder;
+        TreeNode* curr=root;
+        while(curr != nullptr){
+            if(curr->left == nullptr){
+                inorder.push_back(curr->val);
+                curr=curr->right;
+            }else{
+                TreeNode* temp=curr->left;
+                while(temp->right && temp->right!=curr){
+                    temp=temp->right;
+                }
+                if(temp->right == nullptr){
+                    temp->right=curr;
+                    curr=curr->left;
+                }else{
+                    inorder.push_back(curr->val);
+                    temp->right=nullptr;
+                    curr=curr->right;
+                }
+            }
+        }
+        return inorder;
+    }
+};
